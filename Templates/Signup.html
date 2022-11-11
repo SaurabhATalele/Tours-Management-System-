@@ -1,0 +1,88 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup: Travello</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="container-label">Travello <span></span></div>
+
+        <div class="container-icon">
+          <div class="circle"><i class="bi bi-chevron-right"></i></div>
+        </div>
+
+        <div class="container-form">
+          <form action="signup" method="post">
+
+            {% csrf_token %}
+
+            <label for="password">Username</label>
+            <div id="email">{{form.username}}</div>
+
+            <label for="email">E-mail</label>
+            <!-- <input
+              type="text"
+              id="email"
+              placeholder="Enter your E-mail"
+              autofocus
+            /> -->
+
+            <div id="email">{{form.email}}</div>
+
+            <label for="password">Password</label>
+            <!-- <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+            /> -->
+
+            <div id="password">{{form.password1}}</div>
+
+            <label for="password">Confirm Password</label>
+            <!-- <input
+              type="password"
+              id="password"
+              placeholder="Enter your password again"
+            /> -->
+
+            <div id="password">{{form.password2}}</div>
+
+            <div class="change-password">
+              {% for message in messages %}
+                  {{message}}
+              {% endfor %}
+
+              <br>
+              Already have an account? <a href="{% url 'Login' %}">Login</a>
+            </div>
+
+            <button type="submit">SignUp</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

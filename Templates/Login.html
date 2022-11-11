@@ -1,0 +1,68 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{% static 'style/style.css' %}" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="container-label">Travello <span></span></div>
+
+        <div class="container-icon">
+          <div class="circle"><i class="bi bi-chevron-right"></i></div>
+        </div>
+
+        <div class="container-form">
+          <h1>Login</h1>
+          <form method="post" action="login">
+            {% csrf_token %}
+            <label for="email">E-mail</label>
+            <input
+              type="text"
+              id="email"
+              name="username"
+              placeholder="Enter your E-mail"
+              autofocus
+            />
+
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+            />
+
+            <div class="change-password">
+              Don't Have an account <a href="{% url 'signup'%}">Sign up</a>
+            </div>
+
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
