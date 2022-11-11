@@ -1,7 +1,7 @@
 # Tours-Management-System-
 Tours management system is a python based web application build on django framework.
 
-##How to run the code?
+## How to run the code?
 To run the code first you need to install the required libraries.
 for doing that you need to run the folliwinf command:
 
