@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="main">
+        {% for i in users %}
+        <div class="card">
+            <div class="name">{{i.username}}</div>
+            <div class="email">{{i.email}}</div>
+            
+        </div>
+
+    {% endfor %}
+    </div>
+    
+</body>
+<style>
+    .main{
+        display: flex;
+        flex-direction: column;
+    }
+    .card{
+        width: 500px;
+        height: 60px;
+        box-shadow: #252525 5px 5px 10px;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .card .name{
+        color: red;
+        font-size: 18px;
+    }
+</style>
+</html>

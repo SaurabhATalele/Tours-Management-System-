@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="addpc" method="post">
+        {% csrf_token %}
+        <label for="name">Pack Name</label>
+        {{form.pack_name}}
+        <label for="Trip Duration"> Trip Duration</label>
+        {{form.tripduration}}
+        <label for="dest">Destination</label>
+        {{form.destination}}
+        <label for="price">Price</label>
+        {{form.price}}
+        <label for="Image">Image</label>
+        {{form.image}}
+        <label for="cat">Category</label>
+        {{form.category}}
+        <input type="submit" name="" id="" value="Add">
+    </form>
+    
+</body>
+<style>
+    body{
+        display: flex;
+        flex-direction: column;
+        font-size: 18px;
+    }
+    form{
+        width: 300px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    input{
+        margin: 20px;
+        width: 200px;
+        height: 30px;
+    }   
+</style>
+</html>

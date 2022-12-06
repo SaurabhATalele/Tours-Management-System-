@@ -1,19 +1,58 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Places</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style/searchStyle.css' %}">
 </head>
 <body>
-    <div class="Results">
-        <div class="card">
-            <div id="title">{{}}</div>
-            <div id="days"></div>
-            <div id="budget"></div>
-            <div id="btn"></div>
+
+    
+    
+    <div class="main">
+        <div id="title">
+            Your Search Results
         </div>
+
+        {% for pack in package %}
+        <div class="card" >
+            <img src="{{MEDIA_URL}}{{pack.image}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{pack.destination}}</h5>
+
+                <div class="bottom">
+                    <p class="card-text">Date: {{det.datearr}} </p>
+                    <p class="card-text">Duration:{{pack.tripduration}}</p>
+                    <p class="card-text" id="num">People:{{det.num}}</p>
+                </div>
+                
+                <div class="bottom">
+                    
+                    
+                    <div class="price" id="price">Rs. {{pack.price}}</div>
+
+                    
+    
+                    <a href="book/{{pack.pack_name}}/{{det.num}}/{{det.datearr}}" id="button">Book Now</a>
+                </div>
+            </div>
+        </div>
+
+        {% endfor %}
+        
     </div>
+  
+
 </body>
+<script>
+    var price = parseInt(document.getElementById("price").value());
+    var num = parseInt(document.getElementById("num").value());
+    alert(price*num);
+    
+
+</script>
 </html>

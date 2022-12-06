@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success-order Confirmed</title>
+</head>
+<body>
+    <a href="/" class="back"><img src="{{MEDIA_URL}}/back1.png" alt=""></a>
+    <div class="content">
+        <img src="{{MEDIA_URL}}/Ok.png" alt="">
+        <p>Success! Your Order is confirmed...</p>
+        <p>Your Order total is {{total}}</p>
+        <span><a href="/">Home</a></span>
+    </div>
+    
+</body>
+<style>
+    .content{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        text-align: center;
+    }
+
+    .content p{
+        color:green;
+        font-size: 22px;
+        text-align: center;
+    }
+
+    .content a{
+        text-decoration: none;
+        color:#fe4705;
+        font-size:25px ;
+    }
+
+
+    .back{
+        margin: 50px;
+        top: 20px;
+    }
+
+    
+</style>
+</html>

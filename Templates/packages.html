@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages</title>
+</head>
+<body>
+
+    <div class="add"><a href="/addpc">Add</a></div>
+
+    <div class="main">
+        {% for i in orders %}
+        <div class="card">
+            <div class="name">Name: {{i.pack_name}}</div>
+            <div class="email">Destination: {{i.destination}}</div>
+            <div class="email">Trip Duration: {{i.tripduration}}</div>
+            <div class="email">Price: {{i.price}}</div>
+        
+            
+        </div>
+
+    {% endfor %}
+    </div>
+    
+</body>
+<style>
+    .main{
+        display: flex;
+        flex-direction: column;
+    }
+    .card{
+        width: 500px;
+        height: 100px;
+        box-shadow: #252525 5px 5px 10px;
+        margin: 10px;
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    .card div{
+        margin-top: 5px;
+    }
+
+    .card .name{
+        color: red;
+        font-size: 18px;
+    }
+
+    .add{
+        width: 100px;
+        height: 30px;
+        background-color: green;
+        color: white;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+        margin: 50px;
+    }
+
+
+    .add a{
+        color: white;
+        text-decoration: none;
+    }
+</style>
+</html>

@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complete responsive tour and travel agency website</title>
+    <title>Home|Travello</title>
 
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
@@ -35,7 +35,6 @@
         <a href="#packages">packages</a>
         <a href="#services">services</a>
         <a href="#gallery">gallery</a>
-        <a href="#review">review</a>
         <a href="#contact">contact</a>
     </nav>
 
@@ -138,16 +137,13 @@
             </div>
             <div class="inputBox">
                 <h3>how many</h3>
-                <input type="number" placeholder="number of guests">
+                <input type="number" name="num" placeholder="number of guests">
             </div>
             <div class="inputBox">
                 <h3>arrivals</h3>
-                <input type="date">
+                <input type="date" name="datearr">
             </div>
-            <div class="inputBox">
-                <h3>leaving</h3>
-                <input type="date">
-            </div>
+           
             <input type="submit" class="btn" value="book now">
         </form>
 
@@ -161,6 +157,7 @@
 
 <section class="packages" id="packages">
 
+    {% if pack%}
     <h1 class="heading">
         <span>p</span>
         <span>a</span>
@@ -171,6 +168,7 @@
         <span>e</span>
         <span>s</span>
     </h1>
+    {% endif %}
 
     <div class="box-container">
 
@@ -182,7 +180,7 @@
             <img src="{{MEDIA_URL}}{{package.image}}" alt="">
             <div class="content">
                 <h3> <i class="fas fa-map-marker-alt"></i> {{package.pack_name}} </h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis, nam!</p>
+                <p>Duration: {{package.tripduration}}</p>
                 <!-- <div class="stars">
                     <i class="fas fa-star"></i>
                     <i class="fas fa-star"></i>
@@ -193,7 +191,7 @@
                 <div class="price"> RS.{{package.price}} </div>
                 
                     
-                    <a href="book-now/{{package.pack_name}}" class="btn">book now</a>
+                    <!-- <a href="book-now/{{package.pack_name}}" class="btn">book now</a> -->
                
             </div>
         </div>
@@ -440,7 +438,7 @@
 <!-- gallery section ends -->
 
 <!-- review section starts  -->
-
+<!-- 
 <section class="review" id="review">
 
     <h1 class="heading">
@@ -543,30 +541,25 @@
 
         <form action="" method="post">
             <div class="inputBox">
+                <label for="name">Name</label>
                 {{contact.name}}
-                <!-- <input type="email" placeholder="email"> -->
+                <label for="email">Email</label>
                 {{contact.email}}
             </div>
             <div class="inputBox">
-                <!-- <input type="number" placeholder="number"> -->
-                <!-- <input type="text" placeholder="subject"> -->
-
+                <label for="Number">Number</label>
                 {{contact.number}}
+                <label for="sub">Subject</label>
                 {{contact.subject}}
             </div>
-            <!-- <textarea placeholder="message" name="" id="" cols="30" rows="10"></textarea>
-             -->
-
-             <div id="textarea">
 
                  {{contact.message}}
-                </div>
                  <input type="submit" class="btn" value="send message">
         </form>
 
     </div>
     
-</section>
+</section> 
 
 <!-- contact section ends -->
 
@@ -610,7 +603,6 @@
             <a href="#">packages</a>
             <a href="#">services</a>
             <a href="#">gallery</a>
-            <a href="#">review</a>
             <a href="#">contact</a>
         </div>
         <div class="box">

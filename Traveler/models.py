@@ -28,12 +28,12 @@ class Orders(models.Model):
     people = models.IntegerField()
     order_date = models.DateField()
     cost = models.IntegerField()
-    pack_name = models.ForeignKey(Packages,null = True,on_delete = models.SET_NULL)
+    pack_name = models.CharField(max_length=200)
     trip_date = models.DateField()
     
 
     def __str__(self):
-        return self.Packages.pack_name
+        return self.order_id
 
   
 class contact(models.Model):
@@ -41,7 +41,6 @@ class contact(models.Model):
 	email = models.CharField(max_length=100)
 	number = models.CharField(max_length=10)
 	subject = models.CharField(max_length=200)
-	message = models.CharField(max_length=300)
 
 	def __str__(self):
 		return self.name

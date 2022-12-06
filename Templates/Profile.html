@@ -1,14 +1,95 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style/profile.css' %}">
+    <title>Profile-Travello</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body>
-    HEllo {{user.username}}
 
-    <a href="{% url 'logout' %}">Logout</a>
+<body>
+
+    <div class="info">
+        <p>Hello  </p>
+        <p> {{user.username}}</p>
+    </div>
+  
+
+    <div class="tabs">
+
+        <ul>
+            <!-- <li><span class="material-icons">
+                account_circle
+            </span><a href="#"> 
+                    <span>Upadate profile</span>
+                </a></li> -->
+            <li><span class="material-icons">
+                logout
+                </span><a href="{% url 'logout' %}" class="Logout">
+                <span>
+
+                    Logout
+                </span>
+            </a></li>
+        </ul>
+
+
+
+
+
+    </div>
+
+    <div class="orders">
+        <h2>Your Orders</h2>
+        {% if Message %}
+            {{Message}}
+        {% endif%}
+        {% for order in orders %}
+        <div class="card" >
+            
+            <p> Pack Name: {{order.pack_name}}</p>
+            <p>Odrder Date: {{order.order_date}}</p>
+            <p>Trip Date : {{order.trip_date}}</p>
+            <p>Amount: {{order.cost}}</p>
+            <a href="cancle-order/{{order.order_id}}">Cancel </a>
+
+        </div>
+        {% endfor %}
+    </div>
 </body>
+<style>
+
+    .orders{
+        top: 30px;
+        position: relative;
+        width: 100wv;
+        height:auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: scroll;
+    }
+    
+        .orders .card {
+    
+    width: 500px;
+    height: 200px;
+    box-shadow: #252525 5px 5px 10px;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.card a{
+    color: red;
+}
+    
+</style>
+
 </html>
