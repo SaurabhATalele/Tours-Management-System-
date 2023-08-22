@@ -17,7 +17,7 @@
         <div id="title">
             Your Search Results
         </div>
-
+        {{pack}}
         {% for pack in package %}
         <div class="card" >
             <img src="{{MEDIA_URL}}{{pack.image}}" class="card-img-top" alt="...">
@@ -38,6 +38,7 @@
                     
     
                     <a href="book/{{pack.pack_name}}/{{det.num}}/{{det.datearr}}" id="button">Book Now</a>
+                    <!-- <a href="book/{{pack.pack_name}}" id="button">Book Now</a> -->
                 </div>
             </div>
         </div>

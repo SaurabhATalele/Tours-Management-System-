@@ -70,6 +70,8 @@ def Signup(request):
                 messages.success(request,'Account was created for ' + user)
 
                 return redirect('Login')
+            else:
+                print("form is not valid")
         context = {'form' : form}
         
         return render(request,'Signup.html',context)
@@ -89,8 +91,9 @@ def search_book_now(request):
     if request.method == "POST":
         
         pack = Packages.objects.filter(destination = request.POST["Place-name"])
+        print(request.POST["Place-name"])
         det = request.POST
-        
+        print(pack)
         
         return render(request,'Search.html',{'package':pack,"det":det})
 
