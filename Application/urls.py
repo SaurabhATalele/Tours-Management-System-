@@ -24,5 +24,6 @@ urlpatterns = [
     path("cancle-order/<int:id>",views.cancle_order,name="cancle order",),
     path("success/<int:total>",views.success),
     path("supdate-profile",views.update_profile),
+    path("payment", views.razorpayPayment, name='payment'),
      
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
