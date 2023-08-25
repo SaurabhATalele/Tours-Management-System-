@@ -62,7 +62,7 @@
     /* justify-content: center; */
 }
 
-.card #button{
+.card .button{
     display: flex;
     margin: 0  0 0 30px;
     width: 100px;
