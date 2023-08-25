@@ -41,7 +41,7 @@ def Login(request):
             return redirect('home')
             
         else:
-            messages.info(request,'Username or Password is incorrect')
+            return HttpResponse("<script> alert('Invalid Username or Password'); window.location.href = '/login' </script>")
 
         context = {}
 
