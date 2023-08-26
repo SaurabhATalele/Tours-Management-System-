@@ -215,6 +215,8 @@ def razorpayPayment(request):
     razorpay_details = RazorpayKeys.objects.get(payment_id=0)
     import razorpay
     client = razorpay.Client(auth=(razorpay_details.public_key, razorpay_details.private_key))
+    if request.POST.get('razorpay_order_id') == None:
+        return HttpResponse("<script> alert('Payment Failed please try again'); window.location.href = '' </script>")
     razorpay_order_id = request.POST['razorpay_order_id']
     razorpay_payment_id = request.POST['razorpay_payment_id']
     razorpay_signature = request.POST['razorpay_signature']
@@ -226,4 +228,5 @@ def razorpayPayment(request):
         'razorpay_payment_id': razorpay_payment_id,
         'razorpay_signature': razorpay_signature
     })
-    return HttpResponse("Payment Verified")
+    url = "/success/"+razorpay_payment_id
+    return redirect(url)
