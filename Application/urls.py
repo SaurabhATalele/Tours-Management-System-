@@ -25,5 +25,6 @@ urlpatterns = [
     path("success/<str:total>",views.success),
     path("supdate-profile",views.update_profile),
     path("payment", views.razorpayPayment, name='payment'),
+    path("itenary-planner", views.itenary_planner, name='itenary_planner'),
      
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

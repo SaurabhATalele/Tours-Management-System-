@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm,PackageForm, CreateUserForm,SubmitContactForm
 import random,datetime
+from .poi_trialmerged import FINAL
 
 @csrf_exempt
 def home(request):
@@ -230,3 +231,19 @@ def razorpayPayment(request):
     })
     url = "/success/"+razorpay_payment_id
     return redirect(url)
+
+
+def itenary_planner(request):
+    mood_type = []
+    # travel_type = []
+    data = {}
+    if request.method == 'POST':
+        mood_type.append(request.POST.get('mood_type'))
+        duration = request.POST.get('duration')
+        budget = request.POST.get('budget')
+        travel_type = request.POST.get('travel_type')
+        
+        r1, r2, r3 = FINAL(mood_type, int(duration), int(budget), travel_type, "Yes")
+        data['map'] = r3._repr_html_()
+        data['itenary'] = r1
+    return render(request, 'Iteneary_planner.html', data)
