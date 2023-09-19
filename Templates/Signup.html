@@ -79,6 +79,22 @@
               Already have an account? <a href="{% url 'Login' %}">Login</a>
             </div>
 
+            {% if form.errors %}
+              {% for field in form %}
+                  {% for error in field.errors %}
+                      <div style="color: red;">
+                          <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+
+              {% for error in form.non_field_errors %}
+                  <div style="color: red;">
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+
+            {% endif %}
             <button type="submit">SignUp</button>
           </form>
         </div>

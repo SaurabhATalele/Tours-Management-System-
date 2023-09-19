@@ -22,7 +22,9 @@ urlpatterns = [
     path("book/<name>/<num>/<date>",views.book_now_package,name="Search book now package"),
     path("book/<name>",views.search_book_now,name="Book"),
     path("cancle-order/<int:id>",views.cancle_order,name="cancle order",),
-    path("success/<int:total>",views.success),
+    path("success/<str:total>",views.success),
     path("supdate-profile",views.update_profile),
+    path("payment", views.razorpayPayment, name='payment'),
+    path("itenary-planner", views.itenary_planner, name='itenary_planner'),
      
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

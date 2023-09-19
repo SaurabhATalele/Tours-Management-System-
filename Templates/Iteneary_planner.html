@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+    <!-- MDB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background-color: #fbfbfb;
+        }
+
+        input[type=range] {
+            -webkit-appearance: none;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 300px;
+            height: 5px;
+            background: #ddd;
+            border: none;
+            border-radius: 3px;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            border: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #E4A11B;
+            margin-top: -4px;
+        }
+
+        input[type=range]:focus {
+            outline: none;
+        }
+
+        input[type=range]:focus::-webkit-slider-runnable-track {
+            background: #ccc;
+        }
+
+        input:checked[type=checkbox]:after{
+            background-color: #E4A11B;
+        }
+
+    </style>
+
+</head>
+
+<body>
+    <div class="row d-flex justify-content-center align-items-center" style="margin-top: 100px;">
+
+
+        <h1 class="col-8 d-flex justify-content-center align-items-center">Itenary Planner</h1>
+        <div class="col-6 d-flex justify-content-center align-items-center">
+            <form action="/itenary-planner" method="post" style="width: 100%;"> {% csrf_token %}
+                <select class="form-select my-2" aria-label="Default select example" id="mood_type" name="mood_type"
+                    style="width: 100%;">
+                    <option value="null">Choose your option</option>
+                    <option value="Adventure and Outdoors">Adventure and Outdoors</option>
+                    <option value="Spiritual">Spiritual</option>
+                    <option value="City Life">City Life</option>
+                    <option value="Cultural">Cultural</option>
+                    <option value="Relaxing">Relaxing</option>
+
+                </select>
+                <label class="form-label my-2" for="duration">Enter your duration</label>
+                <div class="range">
+                    <input type="range" class="form-range" id="duration" name="duration" min="1" step="1" max="40" value="1" />
+                    <label class="form-label my-2" id="duration-value" for="duration">1</label>
+                </div>
+                <label class="form-label my-2" for="budget">Enter your budget</label>
+                <div class="range">
+                    <input type="range" class="form-range" id="budget" name="budget" min="2700" step="1500" max="150000"
+                        value="2700" />
+                    <label class="form-label my-2" id="budget-value" for="budget">2700</label>
+                </div>
+                <select class="form-select my-2" aria-label="Default select example" id="travel_type" name="travel_type"
+                    style="width: 100%;">
+                    <option value="null">Who are you travelling with?</option>
+                    <option value="Family">Family</option>
+                    <option value="Friends">Friends</option>
+                    <option value="Individual">Individual</option>
+
+                </select>
+
+                <!-- <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="max_places" name="max_places" value="yes" checked>
+                    <label class="form-check-label" for="mySwitch">Is covering maximum places a priority?</label>
+                </div> -->
+
+                <button type="submit" class="btn btn-warning" style="width: 100%;">What would you suggest?</button>
+                <a class="btn btn-outline-warning my-2" href="/" style="width: 100%;">Back</a>
+            </form>
+            
+        </div>
+    </div>
+
+    
+    <div id="results" class="row d-flex justify-content-center align-items-center" style="margin-top: 40px;">
+        
+        {% if itenary %}
+            <h2 class="col-8 d-flex justify-content-center align-items-center">Results are</h2>
+            <ul class="list-group list-group-light col-8">
+            {% for place in itenary %}
+                <li class="list-group-item">{{place}}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <div id="results" class="row d-flex justify-content-center align-items-center">
+        
+        <div class="col-8">
+            {% if map %}
+            {{ map | safe }}
+        {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("budget").onchange = function () {
+            document.getElementById("budget-value").innerHTML = document.getElementById("budget").value;
+        }
+        document.getElementById("duration").onchange = function () {
+            document.getElementById("duration-value").innerHTML = document.getElementById("duration").value;
+        }
+    </script>
+</body>
+
+</html>

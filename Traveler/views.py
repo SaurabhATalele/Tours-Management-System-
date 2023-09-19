@@ -1,7 +1,7 @@
 from unicodedata import name
 from django.shortcuts import redirect, render,HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from .models import Packages,Orders
+from .models import Packages,Orders, RazorpayKeys
 from django.contrib.auth.models import User
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate,login,logout
@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import OrderForm,PackageForm, CreateUserForm,SubmitContactForm
 import random,datetime
-
+from .poi_trialmerged import FINAL
 
 @csrf_exempt
 def home(request):
@@ -41,7 +41,7 @@ def Login(request):
             return redirect('home')
             
         else:
-            messages.info(request,'Username or Password is incorrect')
+            return HttpResponse("<script> alert('Invalid Username or Password'); window.location.href = '/login' </script>")
 
         context = {}
 
@@ -70,6 +70,8 @@ def Signup(request):
                 messages.success(request,'Account was created for ' + user)
 
                 return redirect('Login')
+            else:
+                print("form is not valid")
         context = {'form' : form}
         
         return render(request,'Signup.html',context)
@@ -89,8 +91,9 @@ def search_book_now(request):
     if request.method == "POST":
         
         pack = Packages.objects.filter(destination = request.POST["Place-name"])
+        print(request.POST["Place-name"])
         det = request.POST
-        
+        print(pack)
         
         return render(request,'Search.html',{'package':pack,"det":det})
 
@@ -110,7 +113,12 @@ def Logout(request):
 @login_required(login_url="/login")
 def book_now_package(request,name,num,date):
 
-    
+    razorpay_details = RazorpayKeys.objects.get(payment_id=0)
+    import razorpay
+    client = razorpay.Client(auth=(razorpay_details.public_key, razorpay_details.private_key))
+
+    data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
+    payment = client.order.create(data=data)
     price = Packages.objects.filter(pack_name = name)
     
     order = Orders.objects.create(order_id = random.randint(1,100000),
@@ -120,9 +128,13 @@ def book_now_package(request,name,num,date):
     cost = int(num)*int(price[0].price),
     pack_name =name,
     trip_date = date)
+    data = { "amount": int(num)*int(price[0].price)*100, "currency": "INR", "receipt": str(order.order_id) }
+    payment = client.order.create(data=data)
+    print(payment)
     order.save()
-    url = "/success/"+str((int(num)*int(price[0].price)))
-    return redirect(url)
+    # url = "/success/"+str((int(num)*int(price[0].price)))
+    # return redirect(url)
+    return render(request, 'Payment.html', {'payment': payment, 'order': order, 'key': razorpay_details.public_key})
 
 def cancle_order(request,id):
     order =Orders.objects.filter(order_id = int(id))
@@ -197,3 +209,41 @@ def addpackages(request):
         return render(request,"AddPackage.html",{"form":form})
     else:
         return HttpResponse("You are Not a staff")
+    
+
+@csrf_exempt
+def razorpayPayment(request):
+    razorpay_details = RazorpayKeys.objects.get(payment_id=0)
+    import razorpay
+    client = razorpay.Client(auth=(razorpay_details.public_key, razorpay_details.private_key))
+    if request.POST.get('razorpay_order_id') == None:
+        return HttpResponse("<script> alert('Payment Failed please try again'); window.location.href = '' </script>")
+    razorpay_order_id = request.POST['razorpay_order_id']
+    razorpay_payment_id = request.POST['razorpay_payment_id']
+    razorpay_signature = request.POST['razorpay_signature']
+    # print(razorpay_order_id)
+    # print(razorpay_payment_id)
+    # print(razorpay_signature)
+    client.utility.verify_payment_signature({
+        'razorpay_order_id': razorpay_order_id,
+        'razorpay_payment_id': razorpay_payment_id,
+        'razorpay_signature': razorpay_signature
+    })
+    url = "/success/"+razorpay_payment_id
+    return redirect(url)
+
+
+def itenary_planner(request):
+    mood_type = []
+    # travel_type = []
+    data = {}
+    if request.method == 'POST':
+        mood_type.append(request.POST.get('mood_type'))
+        duration = request.POST.get('duration')
+        budget = request.POST.get('budget')
+        travel_type = request.POST.get('travel_type')
+        
+        r1, r2, r3 = FINAL(mood_type, int(duration), int(budget), travel_type, "Yes")
+        data['map'] = r3._repr_html_()
+        data['itenary'] = r1
+    return render(request, 'Iteneary_planner.html', data)
